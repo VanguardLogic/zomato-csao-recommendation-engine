@@ -1,0 +1,6 @@
+================ 1. MODEL PERFORMANCE METRICS ================
+AUC (Area Under ROC Curve)  : 0.8489  | Overall model discrimination
+HitRate @ 8                 : 0.4570  | Presence of ground truth in top-K
+NDCG                        : 0.1618  | Ranking list quality (Log Discounted)
+MRR (Mean Reciprocal Rank)  : 0.1178  | Average rank quality
+===============================================================

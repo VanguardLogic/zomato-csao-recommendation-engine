@@ -1,0 +1,16 @@
+# LightGBM LambdaMART Hyperparameter Tuning Approach
+
+To optimize for the highest possible NDCG and HitRate (MRR) on the Zomato CSAO add-on recommendation task, we transitioned from a Pointwise Random Forest model to a Pairwise Learning-to-Rank (LTR) framework using LightGBM.
+
+Our tuning approach focused on maximizing array sorting accuracy while heavily penalizing overfitting to the synthetic data.
+
+## Final Tuned Parameters
+
+*   `objective="lambdarank"`: Instructs LightGBM to natively optimize for array sorting rather than binary classification.
+*   `metric="ndcg"`: Directly targets the Normalized Discounted Cumulative Gain to ensure the most relevant true add-ons are strictly placed at the very top of the list.
+*   `n_estimators=300`: Increased the number of boosting iterations (trees) to allow the model to learn fine-grained culinary association patterns across the 15,000 order groups.
+*   `learning_rate=0.03`: Decreased from the default to ensure slower, more stable convergence without overshooting optimal weights.
+*   `num_leaves=31`: Constrained the leaf structure to prevent individual trees from becoming overwhelmingly complex.
+*   `max_depth=10`: Hard limit on tree depth to combat overfitting on specific regional edge cases.
+*   `min_child_samples=20`: Requires at least 20 historical instances in a leaf to form a rule, acting as robust regularization against noise.
+*   `subsample=0.8` & `colsample_bytree=0.8`: Enables Stochastic Gradient Boosting by randomly sampling 80% of rows and columns per tree, vastly improving the model's ability to generalize to unseen test data.

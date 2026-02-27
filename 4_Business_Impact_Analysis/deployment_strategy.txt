@@ -1,0 +1,19 @@
+# Recommendations for Deployment Strategy
+
+Once the ML architecture proves performant locally in offline validation, the Zomato pipeline must securely migrate to cloud infrastructure. We recommend the following deployment phased rollout:
+
+## 1. Cloud Infrastructure & Hosting
+*   **API Serving (FastAPI):** Deploy the `inference.py` script as a high-concurrency FastAPI container hosted on **AWS ECS** or **EKS (Elastic Kubernetes Service)** via Docker.
+*   **Vector Database (Stage 1):** The local dictionary memory mapping should be immediately replaced by a managed vector database (e.g., **Pinecone** or **AWS OpenSearch**) for scale. 
+*   **Model Hosting (Stage 2):** Store the trained LightGBM model artifact (`ranker_model.pkl`) in an S3 bucket. The FastAPI pods should fetch the latest `.pkl` model automatically upon scaling spin-ups.
+
+## 2. A/A Testing Phase (The "Dark" Launch)
+*   **Goal:** Validate SLA latency (< 300ms) with zero impact on actual users.
+*   **Action:** Route $10\%$ of live Zomato traffic to query the new Two-Stage endpoint in the background. Do *not* render the recommendations to the UI. Monitor the FastAPI container's telemetry and P95 latency distributions in Datadog/NewRelic to ensure the `sentence-transformers` embedding overhead isn't timing out.
+
+## 3. A/B Canary Release (The Revenue Test)
+*   **Goal:** Measure the precise relative **AOV Lift** and **Add-on Acceptance Rates**.
+*   **Action:**
+    *   *Control Group (80% traffic):* Baseline Zomato system.
+    *   *Treatment Group (20% traffic):* New LightGBM lambda-sorted rail.
+*   **Metrics Check:** Trigger automated roll-back if the new widget drastically increases the Cart Abandonment Rate (indicating the new recommendations are causing choice paralysis). If the acceptance rates remain positive, gradually funnel traffic from 20% to 50% to 100% stable deployment.

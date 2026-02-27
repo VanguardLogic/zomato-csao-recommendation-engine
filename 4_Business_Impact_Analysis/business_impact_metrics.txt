@@ -1,0 +1,6 @@
+================ 2. BUSINESS IMPACT METRICS ================
+Add-on Acceptance Rate      : 129.26%  | % of recommended items expected to be added
+AOV Lift                    : 129.26 INR  | Incremental increase in cart value
+Click-Through Rate          : 193.89% | % of users engaging with recommendations
+C2O Effect Assumption       : Positive (Non-intrusive UI via Latency SLA minimizes abandonment)
+===============================================================

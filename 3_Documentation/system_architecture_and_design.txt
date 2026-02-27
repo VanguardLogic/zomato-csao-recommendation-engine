@@ -1,0 +1,18 @@
+# System Architecture and Design Decisions
+
+The Zomato CSAO recommendation engine utilizes a robust **Two-Stage Architecture** commonly found in enterprise-scale recommendation systems (like YouTube and Pinterest).
+
+## Stage 1: Candidate Retrieval (Vector Semantic Search)
+Running predictions against a massive regional catalog is computationally expensive. Stage 1 acts as a funnel.
+1.  We run `sentence-transformers` (`all-MiniLM-L6-v2`), a pretrained transformer-based embedding model, to encode the user's cart items into a high-dimensional vector space.
+2.  We perform a rapidly indexed Cosine Similarity search against our pre-computed Knowledge Graph (`regional_affinity_map.json`).
+3.  This retrieves a subset of ~10 highly contextually relevant items. In production, this retrieval pool size can be scaled to 100-1000 items instantly without architectural changes to provide the ML ranker with choice diversity.
+
+## Stage 2: Machine Learning Ranker (LightGBM LambdaMART)
+The retrieved candidates are then passed through our Machine Learning model to determine the absolute optimal sort order for the user interface.
+1.  **Feature Injection:** The model ingests generic context (Time of Day, User Segment) and item features (Price, Veg). Note that this is primarily a **Cart-Context Recommender**, not a full personalized recommender with long-term user embeddings. We use lightweight heuristics (like historical `veg_ratio`) as proxies for personalization.
+2.  **Pairwise Ranking:** Using the LambdaMART algorithm, the candidates are scored and definitively ordered to maximize the probability of user acceptance based on historic trained interactions.
+
+## Design Decisions
+- **Why LightGBM?** It natively supports the `lambdarank` objective, which is the mathematically optimal way to solve "List Sorting" problems compared to standard XGBoost or Random Forests.
+- **Why Two-Stage?** It drastically reduces Inference Latency. We do not need to run the heavy ML ranker on all 1,000 items in a catalog, only the closest candidates retrieved by Stage 1.

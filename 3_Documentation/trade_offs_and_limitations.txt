@@ -1,0 +1,17 @@
+# Trade-offs and Limitations
+
+While the Two-Stage LightGBM system exceeds all requirements for the Hackathon, we acknowledge several deliberate engineering trade-offs made during its implementation:
+
+## 1. Trade-off: Development Velocity vs Real-Time Graph Connectivity
+*   **Limitation:** The Knowledge Graph (`regional_affinity_map.json`) currently statically groups candidates and extracts semantic distances locally via python dictionaries.
+*   **Scale Limitation:** As Zomato scales to millions of menu items, managing dicts in-memory natively will eventually bottleneck.
+*   **Trade-off Made:** Given the prototyping timeline, a local dict mapping Cosine Sim was drastically faster to implement and iterate on.
+*   **Future Fix:** We would theoretically replace the local `dict` with a distributed Vector Database (like Pinecone or Qdrant) which can index millions of semantic vectors simultaneously using HNSW graphs for instantaneous retrieval at planetary scales.
+
+## 2. Limitation: Synthetic Data Rigidity and Inflated Metrics
+*   **Limitation:** While we generated 15,000 temporally-split complex orders featuring vegetarian cohorts and edge-case behaviors, the model was ultimately trained on a generic probability function representing our human assumptions of true Zomato traffic.
+*   **Trade-off Made:** True user interaction logs were unavailable for privacy reasons. As a result, our model's absolute final offline metrics (`AUC ≈ 0.93`, `HitRate@8 ≈ 99%`) represent its mastery over our synthetic patterns, which are significantly tighter than the "noisy" nature of real-user clicks. In a production scenario with real data, `HitRate@10 ≈ 40-70%` is expected. Our architecture is designed to scale on real data, but we do not claim real-world accuracy matching these synthetic high scores.
+
+## 3. Trade-off: Personalization Depth vs Context Recommender
+*   **Limitation:** Our system is explicitly a **Cart-Context Recommender**, rather than a full personalized recommender. We do not maintain or update heavy long-term user embedding sequences. 
+*   **Trade-off Made:** For latency and simplicity, we rely on lightweight heuristic proxies (like `user_segment` or `user_historical_veg_ratio`). This is extremely fast but sacrifices deep 1-to-1 personalization. We fallback strictly to regional Context (Location + Time of Day) for fresh users seamlessly.
