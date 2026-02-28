@@ -1,10 +1,10 @@
-# Zomato CSAO Recommendation Engine: Comprehensive Master Documentation
+# CSAO Recommendation Engine: Technical Documentation
 
-## 1. Executive Summary
+## 1. Overview
 
-The Zomato Cross-Selling & Add-on Optimization (CSAO) recommendation engine is a highly optimized, culturally aware AI inference pipeline designed to intelligently suggest complementary food items. Built specifically to handle Zomato's unique regional requirements (e.g., distinguishing North Indian from Italian cuisines, and filtering strictly by vegetarian constraints dynamically), the system replaces traditional, rigid "if/else" logic tags with semantic embeddings.
+The Cross-Selling & Add-on Optimization (CSAO) engine is an AI pipeline built to suggest add-on food items. Instead of using hardcoded rules, we used semantic embeddings to handle regional cuisines and dietary preferences dynamically.
 
-It solves the "Generic Fallback" problem (e.g. recommending Coke with everything, or a Margherita Pizza with Butter Chicken) by implementing an incredibly fast, highly tunable **Two-Stage Machine Learning Architecture**.
+It solves the "Generic Fallback" problem (e.g. recommending Coke with everything, or a Margherita Pizza with Butter Chicken) by implementing a Two-Stage Machine Learning Architecture.
 
 ---
 
@@ -15,23 +15,23 @@ The recommendation engine utilizes a robust **Two-Stage Architecture**, a patter
 ### Stage 1: Candidate Retrieval (Vector Semantic Search)
 Running complex Machine Learning models against a massive regional catalog of thousands or millions of items is computationally impossible within a 300ms latency budget. Stage 1 acts as a strict "funnel."
 
-1.  **Transformer Embeddings:** We use a pretrained transformer model (`sentence-transformers/all-MiniLM-L6-v2`) to encode the textual descriptions and metadata of the user's cart items into a dense, 384-dimensional vector space.
-2.  **Context Vector Construction:** Instead of just examining the last item added to the cart, we use **Weighted Sequential Pooling**. The most recently added item carries 50% of the pooling weight, while the mean of all previous items in the cart accounts for the remaining 50%. This generates a single, highly accurate "Cart Context Vector."
-3.  **Strict Cuisine Filtering (Stage 0):** Before any math is done, the system heuristically identifies the "Dominant Cuisine" of the cart. It strips out entirely unrelated categories (e.g., no South Indian food is searched if the cart is 100% Italian). Global items (Beverages/Desserts) remain valid.
-4.  **Cosine Similarity Sweep:** We perform a rapidly indexed Cosine Similarity search between the Cart Context Vector and the pre-computed embeddings of our allowable dishes.
-5.  **Output:** This retrieves an initially un-sorted subset of 50 highly contextually relevant "candidates."
+1.  **Embeddings:** We use a pretrained model (`sentence-transformers/all-MiniLM-L6-v2`) to turn cart items into dense, 384-dimensional vectors.
+2.  **Context Vector:** We use Weighted Sequential Pooling on the cart. The newest item gets 50% weight, and the mean of older items gets 50%, creating a single Cart Context Vector.
+3.  **Cuisine Filter (Stage 0):** We heuristically find the dominant cuisine of the cart to strip out totally unrelated items early on.
+4.  **Vector Search:** We run a Cosine Similarity search between the Cart Context Vector and all allowable dishes.
+5.  **Output:** This returns an unsorted subset of 50 relevant candidates.
 
 ### Stage 2: Machine Learning Ranker (LightGBM LambdaMART)
 The 50 candidates retrieved from Stage 1 are passed through a dedicated Machine Learning model to determine the absolute optimal sort order for the user interface rail.
 
 1.  **Feature Injection:** The model ingests a matrix of features per candidate. This matrix includes Item Features (Price, Global Popularity, Vegetarian constraints) and the Vector Affinity score from Stage 1. 
     > *Note: This is strictly a **Cart-Context Recommender**, relying entirely on the composition of the current cart rather than monolithic sequence embeddings, allowing for lightning-fast cold starts.*
-2.  **Pairwise Ranking (LambdaMART):** Using the LightGBM LambdaMART algorithm, the candidates are scored in pairs to maximize the probability of user acceptance based on historic interaction logs.
-3.  **Diversity & Penalty Constraints:** Finally, the model outputs a probability score for each item. We apply a **Popularity Penalty (alpha = -0.1)** to globally popular items (like "Water") to actively discover unique, high-margin, culturally accurate pairings. A final Diversity Constraint ensures no more than 2 items of the same sub-category (e.g. Beverages) populate the final Top 8 recommendations returned to the UI.
+2.  **Ranking (LambdaMART):** Using LightGBM LambdaMART, the candidates are scored in pairs to predict the likelihood a user will add them based on historical data.
+3.  **Refinement:** We apply a Popularity Penalty (alpha = -0.1) to generic items like "Water" to surface better pairings. A basic diversity check ensures we don't just output 8 beverages.
 
-### Architectural Trade-offs
-- **Why LightGBM?** It natively supports the `lambdarank` algorithmic objective, mathematically the optimal way to solve "List Sorting" (Learning-to-Rank) problems compared to binary classification in XGBoost.
-- **In-Memory vs Database:** For this MVP, embeddings and cosines are swept in-memory via JSON arrays and dictionaries. While lightning-fast for ~300 items, at scale, this trades deployment velocity for eventual memory bottlenecks.
+### Trade-offs
+- **Why LightGBM?** It natively supports the `lambdarank` objective, which is better for "List Sorting" problems than binary classification.
+- **In-Memory vs Database:** For this project, embeddings and cosine similarity operations run in-memory via numpy arrays. It's fast for ~300 items, but production scale would require an external vector database.
 
 ---
 
@@ -42,13 +42,11 @@ To ensure the LightGBM LambdaMART ranker is robust and strictly aligned with bus
 ### Offline Evaluation Strategy
 We explicitly model this as a Learning-to-Rank (LTR) problem rather than simple binary classification.
 
-- **Temporal Train-Test Split:** We **do not** use random `train_test_split`. Random splitting leaks future purchasing behavior into the training set. Instead, training is restricted to the older 80% of generated order sequences (`data/historical_train_data.csv`). The model is evaluated blind on the most recent 20% (`data/recent_test_data.csv`) to truly simulate future inference requests.
-- **Monitored IR (Information Retrieval) Metrics:**
-  - **AUC (Area Under ROC Curve):** Target > 0.70. Measures discrimination ability.
-  - **HitRate / Recall@K:** The percentage of times the *actual* user-added item appears within the generated top-K display rail.
-  - **Precision@K:** Accuracy density of the top-K.
-  - **NDCG (Normalized Discounted Cumulative Gain):** Validates the strict order. A correct item at position 1 mathematically rewards the model more than catching it at position 3.
-  - **MRR (Mean Reciprocal Rank):** Calculates how high up the list the relevant item appeared on average.
+- **Temporal Split:** We purposefully avoid random `train_test_split` because it leaks future behavior. Training uses the older 80% of generated orders (`data/historical_train_data.csv`), and validation runs on the newer 20% (`data/recent_test_data.csv`).
+- **Metrics:**
+  - **AUC:** Target > 0.70 to confirm general classification ability.
+  - **HitRate / Recall@K:** How often the real added item shows up in the top K displayed.
+  - **NDCG:** Validates the sort order. A correct item at position 1 mathematically rewards the model more than catching it at position 3.
 
 ### Online A/B Testing Strategy (Post-MVP)
 - **Phase 1 (Shadow Testing):** Deploy the new API to shadow the baseline system, logging predictions silently to verify live Inference Latency remains below 300ms without risking cart abandonment.
@@ -62,30 +60,30 @@ We explicitly model this as a Learning-to-Rank (LTR) problem rather than simple 
 
 ---
 
-## 4. Scalability Considerations
+## 4. Scaling Up
 
-To ensure the engine can organically handle millions of daily prediction requests at Zomato's peak volume, we prioritized the following:
+To handle massive request volume in production:
 
 ### Latency Optimization (< 300ms SLA)
-- **Measured Inference:** The offline evaluation pipeline clocked an average end-to-end inference latency of **~40ms per request**, comfortably within the stringent SLA.
-- **Precomputed Stage 1:** To guarantee this speed, **all catalog item embeddings are precomputed offline**. At runtime, we only invoke the transformer on the user's active cart items.
+- **Speed:** Our offline tests show end-to-end inference takes **~40ms**, well under the 300ms SLA target.
+- **Precomputed Stage 1:** To maintain speed, catalog item embeddings are generated offline. Runtime only evaluates the active cart.
 
 ### Model Sizing
 - **`all-MiniLM-L6-v2`:** Chosen for its incredibly lightweight footprint (~90 MB) while remaining perfectly adequate for semantic mapping of food terminology. Memory loading issues on containerized Kubernetes worker nodes are virtually non-existent.
 - **LightGBM:** Tree storage structure using integer-mapped leaves rather than bloated floating-point memory heavily minimizes cold-start spin-up times for the API endpoints.
 
-### Enterprise Infrastructure Scaling (The Final Evolution)
-The current MVP logic runs fully natively pythonic logic. Transitioning to Zomato Scale requires upgrading the datastores:
+### Production Infrastructure
+Moving from MVP to full scale requires infrastructure upgrades:
 
-1.  **Vector Databases:** The Stage-1 retrieval sweep (Cos. Sim dict) must transition into an **Approximate Nearest Neighbors (ANN)** clustering database (e.g., **FAISS, Milvus, Pinecone**). This enables Stage-1 to geometrically partition 1,000,000+ items and return the 50 candidates in < 10ms without a linear memory sweep.
-2.  **Centralized Feature Stores:** In enterprise production, features are asynchronously computed nightly by Spark pipelines and loaded into an in-memory **Redis Feature Store**. The live endpoint simply pulls `redis.get(user_id)` instantly when constructing the LightGBM Stage 2 input array.
-3.  **Data Ingestion:** Synthetic local CSV handling gives way to streaming batch ingestion directly from Zomato's **Snowflake** or **AWS S3 Data Lakes**, trained securely using scheduled **Apache Airflow** batch jobs.
+1.  **Vector Databases:** The dict-bound retrieval sweep needs an ANN database (FAISS, Milvus) to instantly search through millions of items.
+2.  **Feature Stores:** Features should be computed by batch jobs and loaded into an in-memory Redis cluster for the live endpoint to pull on demand.
+3.  **Data Ingestion:** Local CSV workflows would be replaced by streaming data directly from Snowflake or S3.
 
 ---
 
 ## 5. Known Limitations
-- **Synthetic Data Inflated Metrics:** Our offline evaluation trained on highly specific synthetic probability functions representing our assumptions of Zomato traffic. The model's final metrics (AUC ≈ 0.93, HitRate@8 ≈ 99%) represent its mastery over these tight synthetic patterns. In a production scenario with "noisy" real human data, a HitRate@10 ≈ 40-70% is standard and expected.
-- **No Deep Personalization Profile:** Bypassing heavy Sequential User Embeddings prioritizes speed. Long-form user behavior is flattened into proxy heuristics, meaning the system may struggle to recommend deep paradigm shifts (e.g., a historically 100% vegetarian user suddenly searching for Chicken without obvious contextual clues).
+- **Synthetic Data Metrics:** The offline model trained on synthetic data representing our assumptions of food delivery traffic patterns. The high metrics (AUC ≈ 0.93) represent mastering those specific synthetic formulas. Real human data will have more noise and lower HitRates.
+- **Personalization Limits:** Since we avoided heavy sequential user profiles in favor of speed, the system might struggle if a user suddenly shifts their usual dietary habits without clear cart signals.
 
 ---
-*Built for the Zomato CSAO Hackathon. Refer to individual files within `3_Documentation/` for historical granular drafts.*
+*Refer to individual files within `3_Documentation/` for older methodology drafts.*
