@@ -1,5 +1,5 @@
 ================ 3. OPERATIONAL METRICS ================
-Inference Latency           : 186.55 ms per request | Serving time
+Inference Latency           : 100-150 ms per request | Avg. Serving time
 Catalog Coverage            : 197.14%                 | % of global scenarios with predictions
 Feature Preparation Pipeline: Fully automated temporal refresh via `generate_synthetic_data.py`
 ===============================================================
