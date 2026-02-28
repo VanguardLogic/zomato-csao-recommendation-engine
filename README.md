@@ -27,7 +27,7 @@ graph TD
     B -->|"2. Exact Cuisine Match + Cosine Similarity"| C{"Stage 1: Retrieval"}
     C -->|"Top 50 Candidates"| D("Transformer Embeddings")
     D --> E{"Stage 2: Ranking"}
-    E -->|"LightGBM LambdaMART"| F("User Segment, Time, Price, Veg Logic")
+    E -->|"LightGBM LambdaMART"| F("Price, Veg Logic, Popularity, Affinity")
     F -->|"Diversity Constraint"| G["🏆 Top 8 Recommendations"]
 ```
 
@@ -35,7 +35,7 @@ graph TD
 Imagine you are at a restaurant. If you order "Butter Chicken," a good waiter shouldn't offer you a Slice of Pizza. They should offer you "Garlic Naan" or "Jeera Rice." 
 Our AI acts like that expert waiter:
 - **It understands the menu**: It groups items by cuisine (North Indian, Italian, Desserts) so it never mixes incompatible foods.
-- **It reads the room**: It knows if it is Lunch or Dinner, and whether you are a Premium or Budget user, adjusting the suggestions accordingly.
+- **It respects dietary choices**: It knows if the cart is vegetarian and prioritizes accordingly, adjusting the suggestions logically.
 - **It learns relationships**: It studies thousands of past orders to learn that "Momos" go well with "Manchow Soup." 
 - **It narrows it down and ranks them**: First, it pulls a list of 50 items that make logical sense. Then, it meticulously ranks those 50 items to give you the absolute best 8 recommendations within milliseconds.
 
@@ -49,7 +49,7 @@ The recommendation system uses a **Two-Stage Recommendation Funnel Pipeline**:
     *   **Strict Cuisine Filtering (Stage 0):** This ensures we only retrieve the top 50 candidates that share the *same dominant cuisine* as the cart, plus global items (Beverages/Desserts). We compute mathematically fast Cosine Similarity between the 384d Cart Vector and all allowable dish vectors to fetch these 50 candidates.
 *   **Stage 2: Candidate Ranking (LightGBM LambdaMART)**
     *   The 50 candidates are passed to a highly-tuned **LightGBM Ranker** model.
-    *   The model evaluates 11 complex features: User Segment, Time of Day, Cart Total Value, Dish Popularity, Vegetarian Constraints, and Embedding Affinity Scores.
+    *   The model evaluates multiple complex features: Cart Total Value, Dish Popularity, Vegetarian Constraints, and Embedding Affinity Scores.
     *   It outputs a final probability score for each item, which is then passed through a **Diversity Constraint** (e.g., maximum 2 beverages allowed) to produce the final Top 8 recommendations.
 *   **Final Polish:** A **Popularity Penalty** (`-0.1` alpha) is applied to global generic items (Water, Coke) to force the engine to discover unique, high-margin pairings (like Raita or Garlic Naan).
 

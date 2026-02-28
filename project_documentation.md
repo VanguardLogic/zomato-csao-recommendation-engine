@@ -24,8 +24,8 @@ Running complex Machine Learning models against a massive regional catalog of th
 ### Stage 2: Machine Learning Ranker (LightGBM LambdaMART)
 The 50 candidates retrieved from Stage 1 are passed through a dedicated Machine Learning model to determine the absolute optimal sort order for the user interface rail.
 
-1.  **Feature Injection:** The model ingests a matrix of 11 features per candidate. This matrix includes generic context (Time of Day, User Segment based on historical activity), Item Features (Price, Global Popularity, Vegetarian constraints), and the Vector Affinity score from Stage 1. 
-    > *Note: This is primarily a **Cart-Context Recommender**, relying on lightweight heuristics like `user_historical_veg_ratio` rather than monolithic sequence embeddings, allowing for lightning-fast cold starts.*
+1.  **Feature Injection:** The model ingests a matrix of features per candidate. This matrix includes Item Features (Price, Global Popularity, Vegetarian constraints) and the Vector Affinity score from Stage 1. 
+    > *Note: This is strictly a **Cart-Context Recommender**, relying entirely on the composition of the current cart rather than monolithic sequence embeddings, allowing for lightning-fast cold starts.*
 2.  **Pairwise Ranking (LambdaMART):** Using the LightGBM LambdaMART algorithm, the candidates are scored in pairs to maximize the probability of user acceptance based on historic interaction logs.
 3.  **Diversity & Penalty Constraints:** Finally, the model outputs a probability score for each item. We apply a **Popularity Penalty (alpha = -0.1)** to globally popular items (like "Water") to actively discover unique, high-margin, culturally accurate pairings. A final Diversity Constraint ensures no more than 2 items of the same sub-category (e.g. Beverages) populate the final Top 8 recommendations returned to the UI.
 
@@ -78,7 +78,7 @@ To ensure the engine can organically handle millions of daily prediction request
 The current MVP logic runs fully natively pythonic logic. Transitioning to Zomato Scale requires upgrading the datastores:
 
 1.  **Vector Databases:** The Stage-1 retrieval sweep (Cos. Sim dict) must transition into an **Approximate Nearest Neighbors (ANN)** clustering database (e.g., **FAISS, Milvus, Pinecone**). This enables Stage-1 to geometrically partition 1,000,000+ items and return the 50 candidates in < 10ms without a linear memory sweep.
-2.  **Centralized Feature Stores:** Calculating rolling window features (e.g., `user_historical_veg_ratio`) on the fly represents unnecessary block-time during a 300ms SLA window. In enterprise production, these features are asynchronously computed nightly by Spark pipelines and loaded into an in-memory **Redis Feature Store**. The live endpoint simply pulls `redis.get(user_id)` instantly when constructing the LightGBM Stage 2 input array.
+2.  **Centralized Feature Stores:** In enterprise production, features are asynchronously computed nightly by Spark pipelines and loaded into an in-memory **Redis Feature Store**. The live endpoint simply pulls `redis.get(user_id)` instantly when constructing the LightGBM Stage 2 input array.
 3.  **Data Ingestion:** Synthetic local CSV handling gives way to streaming batch ingestion directly from Zomato's **Snowflake** or **AWS S3 Data Lakes**, trained securely using scheduled **Apache Airflow** batch jobs.
 
 ---
