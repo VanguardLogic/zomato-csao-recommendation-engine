@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zomato Recommendations</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽️</text></svg>">
+    <title>AI Cart Recommendations</title>
+    <link rel="icon" type="image/svg+xml" href="/static/food-store-svgrepo-com.svg">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,12 +19,21 @@
         }
 
         .header {
-            background-color: #e23744;
-            color: white;
+            background-color: #fff;
+            color: #e23744;
             width: 100%;
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header img {
+            height: 40px;
+            width: auto;
         }
 
         h1 {
@@ -252,7 +260,8 @@
 
 <body>
     <div class="header">
-        <h1>🍽️ Zomato AI Cart Recommendations</h1>
+        <img src="/static/food-store-svgrepo-com.svg" alt="App Logo">
+        <h1>Cart Add-On Intelligence</h1>
     </div>
 
     <div class="container">
