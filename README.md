@@ -135,5 +135,6 @@ While this MVP is built on an in-memory graph of ~300 items, the core Two-Stage 
 4. **Asynchronous Embeddings:** Generating dense vectors for new menu items using `all-MiniLM` is handled asynchronously by nightly **Apache Airflow / Spark** batch jobs, completely protecting the live API's latency budget.
 
 ---
-*Built for the Zomato CSAO Hackathon.*
-](https://github.com/VanguardLogic/zomato-csao-recommendation-engine)
+*Built for the Zomato CSAO Hackathon.*]
+
+## MIT License © 2026 VanguardLogic
