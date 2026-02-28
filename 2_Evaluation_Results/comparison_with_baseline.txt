@@ -14,9 +14,10 @@ The Zomato CSAO recommendation pipeline underwent a massive architectural upgrad
 *   **Retrieval (Sentence-Transformers):** The master catalog is now encoded into mathematical semantic vectors using `all-MiniLM-L6-v2`. "Spicy Spaghetti" is now mathematically understood as Italian food and correctly paired with Cheese Dip and Garlic Bread via Cosine Similarity, entirely eliminating the cold-start matching problem.
 *   **Ranking (LightGBM):** We switched to a Pairwise Learning-to-Rank objective (`lambdarank`). The model directly ingests clusters of items at a time and adjusts mathematical weights specifically to push the true add-on to index [0] of the array.
 *   **Final Performance:**
-    *   AUC: 0.9739
+    *   AUC: 0.8489
     *   NDCG: 0.5194
     *   HitRate (MRR): 0.4570
 
 ## Conclusion
 The transition from a Pointwise classifier to an LTR Ranker paired with semantic embeddings drastically increased Catalog Coverage and pushed ranking metrics to state-of-the-art levels for the Hackathon constraints.
+
