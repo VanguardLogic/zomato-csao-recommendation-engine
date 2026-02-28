@@ -1,6 +1,6 @@
 ================ 2. BUSINESS IMPACT METRICS ================
-Projected Acceptance Rate   : 86.75%  | Estimated conversion per impression
-Estimated AOV Lift          : 73.74 INR  | Incremental value per order
-Predicted engagement (CTR)  : 39.04%  | engagement based on model confidence
+Projected Acceptance Rate   : 75.80%  | Estimated conversion per impression
+Estimated AOV Lift          : 64.43 INR  | Incremental value per order
+Predicted engagement (CTR)  : 34.11%  | engagement based on model confidence
 Business Value Confidence   : High (Cuisine-Match ensures user trust)
 ==============================================================
