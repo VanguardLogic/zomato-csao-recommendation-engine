@@ -29,6 +29,7 @@ print("Engine loaded successfully!")
 class RecommendationRequest(BaseModel):
     cart_items: List[str]
 
+app.mount("/static", StaticFiles(directory=os.path.join(base_dir, "api", "static")), name="static")
 templates = Jinja2Templates(directory=os.path.join(base_dir, "api", "templates"))
 @app.get("/", response_class=HTMLResponse)
 async def serve_frontend(request: Request):
