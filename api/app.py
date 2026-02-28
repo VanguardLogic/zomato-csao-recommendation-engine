@@ -28,8 +28,6 @@ print("Engine loaded successfully!")
 
 class RecommendationRequest(BaseModel):
     cart_items: List[str]
-    user_segment: Optional[str] = "Premium"
-    time_of_day: Optional[str] = "Auto"
 
 templates = Jinja2Templates(directory=os.path.join(base_dir, "api", "templates"))
 @app.get("/", response_class=HTMLResponse)
@@ -39,15 +37,12 @@ async def serve_frontend(request: Request):
 @app.post("/api/recommend")
 async def recommend(request: RecommendationRequest):
     try:
-        # Detect Time of Day automatically if requested
-        if request.time_of_day == "Auto" or not request.time_of_day:
-            hour = datetime.now().hour
-            if hour < 17: time_of_day = "Lunch"
-            else: time_of_day = "Dinner"
-        else:
-            time_of_day = request.time_of_day
+        # Hardcode defaults to keep inferences simple
+        hour = datetime.now().hour
+        if hour < 17: time_of_day = "Lunch"
+        else: time_of_day = "Dinner"
             
-        user_segment = request.user_segment or "Premium"
+        user_segment = "Premium"
         
         # We pre-loaded the engine, so inference should just be standard forward passes
         # <200ms target should easily be met
@@ -58,10 +53,6 @@ async def recommend(request: RecommendationRequest):
         )
         return {
             "cart": request.cart_items,
-            "inferred_context": {
-                "time_of_day": time_of_day,
-                "user_segment": user_segment
-            },
             "recommendations": results,
             "status": "success"
         }

@@ -269,27 +269,7 @@
             </div>
         </div>
 
-        <div class="flex-row">
-            <div class="flex-col">
-                <label for="userSegment">User Segment</label>
-                <select id="userSegment">
-                    <option value="Premium">Premium</option>
-                    <option value="Budget">Budget</option>
-                    <option value="New">New User</option>
-                    <option value="Loyal">Loyal</option>
-                </select>
-            </div>
-            <div class="flex-col">
-                <label for="timeOfDay">Time of Day</label>
-                <select id="timeOfDay">
-                    <option value="Auto">Auto-detect</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Snack">Snack</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Late Night">Late Night</option>
-                </select>
-            </div>
-        </div>
+
 
         <div class="button-group">
             <button onclick="getRecommendations()">Get Recommendations ✨</button>
@@ -326,8 +306,6 @@
                 return;
             }
 
-            const userSegment = document.getElementById('userSegment').value;
-            const timeOfDay = document.getElementById('timeOfDay').value;
 
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results').innerHTML = '';
@@ -339,9 +317,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        cart_items: items,
-                        user_segment: userSegment,
-                        time_of_day: timeOfDay
+                        cart_items: items
                     })
                 });
 
@@ -386,13 +362,6 @@
                 html += `<p style="padding: 15px; text-align: center; color: #666; font-style: italic;">No specific recommendations found for this combination. Try mixing it up!</p>`;
             }
 
-            html += `
-                <div class="context-info">
-                    <strong>Inferred Context:</strong><br>
-                    Time of Day: ${data.inferred_context.time_of_day} <br>
-                    User Segment: ${data.inferred_context.user_segment}
-                </div>
-            `;
 
             resultsDiv.innerHTML = html;
         }
