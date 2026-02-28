@@ -1,0 +1,19 @@
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+.idea/
+.vscode/
+
+# Ignore the heavy evaluation results unless needed for inference
+2_Evaluation_Results/
+
+# Ignore raw data files to keep the image light (the model files are enough)
+data/*.csv
+data/*.json
+
+# Keep the pkl files as they are the trained models
+!data/*.pkl

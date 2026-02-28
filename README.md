@@ -115,7 +115,22 @@ Once the pipeline has successfully produced the `.pkl` and `.json` artifacts in 
 python api/app.py
 ```
 
-### 3. Test It Out!
+### ✨ Option 2: Run via Docker (Production Ready)
+
+If you have Docker installed, you can spin up the entire pre-configured environment in one command:
+
+```bash
+# 1. Build the image
+docker build -t csao-engine .
+
+# 2. Run the container
+docker run -p 8000:8000 csao-engine
+```
+
+---
+
+## 🖥️ Using the UI
+
 Open your web browser and navigate to:
 **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
 
