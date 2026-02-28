@@ -114,6 +114,15 @@ Open your web browser and navigate to:
 You will be greeted by a clean Zomato-themed UI. Type in a sample cart like `Butter Chicken, Garlic Naan` and watch the Two-Stage ML engine return culturally matched add-ons in less than 200 milliseconds!
 
 ---
+## Sample Project Ouput/Run
+<img width="1053" height="990" alt="image" src="https://github.com/user-attachments/assets/c17ab759-c2d9-434b-a635-d3adf0c11594" />
+<img width="1014" height="982" alt="image" src="https://github.com/user-attachments/assets/62ebf36a-d9ad-4a35-a1b7-88174d43f1ff" />
+<img width="1046" height="975" alt="image" src="https://github.com/user-attachments/assets/81e5346f-a11b-407f-b1b8-845af66f0691" />
+<img width="1014" height="955" alt="image" src="https://github.com/user-attachments/assets/7ebbeb62-af8c-44df-969b-3254e84efb2c" />
+<img width="1016" height="978" alt="image" src="https://github.com/user-attachments/assets/afe2b87b-94b5-47f1-8a3f-024bcb081225" />
+
+---
+
 
 ## 🌍 Enterprise Scalability (From MVP to Production)
 
