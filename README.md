@@ -121,6 +121,7 @@ You will be greeted by a clean Zomato-themed UI. Type in a sample cart like `But
 <img width="1014" height="955" alt="image" src="https://github.com/user-attachments/assets/7ebbeb62-af8c-44df-969b-3254e84efb2c" />
 <img width="1016" height="978" alt="image" src="https://github.com/user-attachments/assets/afe2b87b-94b5-47f1-8a3f-024bcb081225" />
 
+## The model can predict for various cuisine types like north Indian, South Indian, Indo-Chinese , Italian and desserts.
 ---
 
 
