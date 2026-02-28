@@ -1,4 +1,4 @@
-# 📖 Zomato CSAO: The Narrative Journey & Technical Deep Dive
+[# 📖 Zomato CSAO: The Narrative Journey & Technical Deep Dive
 ## *Building a Culturally Intelligent Recommendation Engine*
 
 Welcome to the **Zomato Cross-Selling & Add-on Optimization (CSAO)** project repository. This project demonstrates a production-grade, culturally anchored machine learning recommendation engine designed to intelligently suggest complementary food items (add-ons) to a user's cart. 
@@ -126,3 +126,4 @@ While this MVP is built on an in-memory graph of ~300 items, the core Two-Stage 
 
 ---
 *Built for the Zomato CSAO Hackathon.*
+](https://github.com/VanguardLogic/zomato-csao-recommendation-engine)
