@@ -1,0 +1,4 @@
+Blind AUC: 0.7776
+Blind HitRate@8: 96.77%
+Blind NDCG: 0.7581
+Blind MRR: 0.6803
