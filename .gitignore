@@ -30,8 +30,12 @@ env/
 
 # Data and Models (Optional: keep if you want the judge to run from scratch, 
 # but usually we ignore large datasets. We will KEEP the maps for demonstration).
-# data/*.csv
-# data/*.pkl
+data/*.csv
+data/*.pkl
+data/*.json
+
+# Evaluation Results
+2_Evaluation_Results/*.txt
 
 # IDEs
 .vscode/

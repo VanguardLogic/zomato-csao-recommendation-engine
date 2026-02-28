@@ -1,9 +1,0 @@
-# 🕵️ Blind Test Generalization Metrics
-> *These metrics were calculated on a **blind test set** which the model has NEVER seen. This evaluates the true generalization capability of the model.*
-
-| Metric | Score | Description |
-| :--- | :--- | :--- |
-| **AUC (ROC)** | `0.7776` | Overall model discrimination |
-| **HitRate@8** | `96.77%` | Probability of ground truth in the Top 8 recommendations |
-| **NDCG** | `0.7581` | Ranking list quality (Log Discounted) |
-| **MRR** | `0.6803` | Mean Reciprocal Rank (Average position quality) |

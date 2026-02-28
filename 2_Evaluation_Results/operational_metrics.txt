@@ -1,6 +1,0 @@
-================ 3. OPERATIONAL METRICS ================
-Mean Inference Latency      : 83.01 ms | Serving time (Target < 300ms)
-Catalog Diversity Coverage  : 51.58%  | % of catalog actively surfaced
-System Reliability          : Two-Stage Funnel (Semantic Fallback)
-Cache State                 : Precomputed Vectors (Offline)
-==============================================================
