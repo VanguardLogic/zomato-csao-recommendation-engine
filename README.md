@@ -1,7 +1,7 @@
-[# 📖 Zomato CSAO: The Narrative Journey & Technical Deep Dive
+[# 📖 CSAO (Cross-Selling & Add-on Optimization): The Narrative Journey & Technical Deep Dive
 ## *Building a Culturally Intelligent Recommendation Engine*
 
-Welcome to the **Zomato Cross-Selling & Add-on Optimization (CSAO)** project repository. This project demonstrates a production-grade, culturally anchored machine learning recommendation engine designed to intelligently suggest complementary food items (add-ons) to a user's cart. 
+Welcome to the **Cross-Selling & Add-on Optimization (CSAO)** project repository. This project demonstrates a production-grade, culturally anchored machine learning recommendation engine designed to intelligently suggest complementary food items (add-ons) to a user's cart.
 
 This README provides a comprehensive guide to understanding the engine's journey, how it works under the hood, navigating the repository layout, finding the evaluation metrics, and running the system yourself.
 
@@ -11,9 +11,7 @@ This README provides a comprehensive guide to understanding the engine's journey
 At the start of this project, we faced a classic "Generic Fallback" problem. With a small catalog (~50 items) and simple logic, the system suffered from:
 1.  **Cuisine Hallucinations:** Recommending a MARGHERITA PIZZA for a user ordering BUTTER CHICKEN.
 2.  **The "Fries & Coke" Trap:** Globally popular items overwhelmed specific, high-value pairings.
-3.  **Low Semantic Density:** The model couldn't distinguish between subtle culinary relationships.
-
-**Our Mission:** Build an engine that "understands" food, respects culture, and scales to enterprise demands—all under a 300ms latency budget.
+3.  **Synthetic Data Inflated Metrics:** Our offline evaluation trained on highly specific synthetic probability functions representing our assumptions of food delivery traffic. The model's final metrics (AUC ≈ 0.93, HitRate@8 ≈ 99%) represent its mastery over these tight synthetic patterns. In a production scenario with "noisy" real human data, a HitRate@10 ≈ 40-70% is standard and expected.
 
 ---
 
@@ -121,15 +119,9 @@ python api/app.py
 Open your web browser and navigate to:
 **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
 
-You will be greeted by a clean Zomato-themed UI. Type in a sample cart like `Butter Chicken, Garlic Naan` and watch the Two-Stage ML engine return culturally matched add-ons in less than 200 milliseconds!
+You will be greeted by a clean, white-label UI. Type in a sample cart like `Butter Chicken, Garlic Naan` and watch the Two-Stage ML engine return culturally matched add-ons in less than 200 milliseconds!
 
 ---
-## Sample Project Ouput/Run
-<img width="1053" height="990" alt="image" src="https://github.com/user-attachments/assets/c17ab759-c2d9-434b-a635-d3adf0c11594" />
-<img width="1014" height="982" alt="image" src="https://github.com/user-attachments/assets/62ebf36a-d9ad-4a35-a1b7-88174d43f1ff" />
-<img width="1046" height="975" alt="image" src="https://github.com/user-attachments/assets/81e5346f-a11b-407f-b1b8-845af66f0691" />
-<img width="1014" height="955" alt="image" src="https://github.com/user-attachments/assets/7ebbeb62-af8c-44df-969b-3254e84efb2c" />
-<img width="1016" height="978" alt="image" src="https://github.com/user-attachments/assets/afe2b87b-94b5-47f1-8a3f-024bcb081225" />
 
 ## The model can predict for various cuisine types like north Indian, South Indian, Indo-Chinese , Italian and desserts.
 ---
@@ -137,14 +129,14 @@ You will be greeted by a clean Zomato-themed UI. Type in a sample cart like `But
 
 ## 🌍 Enterprise Scalability (From MVP to Production)
 
-While this MVP is built on an in-memory graph of ~300 items, the core Two-Stage ML Architecture is explicitly designed to scale to Zomato's real-world infrastructure (millions of users, millions of items) seamlessly.
+While this MVP is built on an in-memory graph of ~300 items, the core Two-Stage ML Architecture is explicitly designed to scale to real-world infrastructure (millions of users, millions of items) seamlessly.
 
-1. **The Data Pipeline:** Instead of synthetic local CSVs, item metadata and order log histories will stream directly from Zomato's S3 Data Lakes or Snowflake.
+1. **The Data Pipeline:** Instead of synthetic local CSVs, item metadata and order log histories will stream directly from Enterprise S3 Data Lakes or Snowflake.
 2. **Retrieval at Scale (The Vector DB):** In production, our in-memory `cosine_similarity` search is replaced by an **ANN (Approximate Nearest Neighbors) Vector Database** like **FAISS, Milvus, or Qdrant**. This allows the engine to instantly retrieve the top 50 matches from a catalog of *billions* of dishes in under 10ms.
 3. **Ranking at Scale (The Feature Store):** Instead of calculating user variables (Veg-ratio, time_of_day) on the fly, these are precomputed by distributed background pipelines and stored in an ultra-fast in-memory **Feature Store (e.g., Redis)**. The LightGBM ranker simply fetches these precalculated features via memory keys for instantaneous inference.
 4. **Asynchronous Embeddings:** Generating dense vectors for new menu items using `all-MiniLM` is handled asynchronously by nightly **Apache Airflow / Spark** batch jobs, completely protecting the live API's latency budget.
 
 ---
-*Built for the Zomato CSAO Hackathon.*]
+*Built for the CSAO Hackathon.*]
 
 ## MIT License © 2026 VanguardLogic
