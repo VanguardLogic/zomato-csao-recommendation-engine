@@ -44,9 +44,9 @@ The recommendation system uses a **Two-Stage Recommendation Funnel Pipeline**:
 
 *   **Stage 1: Candidate Retrieval (Vector Search)**
     *   We expanded the catalog from **50 to 300+ items** across 7 distinct cuisines to create dense semantic clusters.
-    *   We use a robust Transformer model (`all-MiniLM-L6-v2`) to generate 384-dimensional dense semantic embeddings for every dish in the catalog.
-    *   **Weighted Sequential Pooling** is applied to the user's cart items. The last item added carries 50% of the weight, and the mean of all previous items carries the other 50%. This creates a dynamic "Context Vector."
-    *   **Strict Cuisine Filtering (Stage 0)** ensures that we only retrieve the top 50 candidates that share the *same dominant cuisine* as the cart, plus global items (Beverages/Desserts). We compute Cosine Similarity between the Cart Context Vector and all allowable dish vectors to fetch these 50 candidates.
+    *   **The Brain (Embedding Model):** We use **`sentence-transformers/all-MiniLM-L6-v2`** to generate **384-dimensional dense semantic vectors** for every dish. This is what allows the AI to truly "understand" the ingredients and culinary profile of the food, rather than relying on manual tags.
+    *   **Context Vector Engine:** We apply **Weighted Sequential Pooling** to the user's cart items. The last item added carries 50% of the weight, and the mean of all previous items carries the other 50%. This creates a dynamic, rolling "Context Vector."
+    *   **Strict Cuisine Filtering (Stage 0):** This ensures we only retrieve the top 50 candidates that share the *same dominant cuisine* as the cart, plus global items (Beverages/Desserts). We compute mathematically fast Cosine Similarity between the 384d Cart Vector and all allowable dish vectors to fetch these 50 candidates.
 *   **Stage 2: Candidate Ranking (LightGBM LambdaMART)**
     *   The 50 candidates are passed to a highly-tuned **LightGBM Ranker** model.
     *   The model evaluates 11 complex features: User Segment, Time of Day, Cart Total Value, Dish Popularity, Vegetarian Constraints, and Embedding Affinity Scores.
