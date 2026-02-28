@@ -1,0 +1,529 @@
+{
+    "Masala Dosa": {
+        "region": "South",
+        "base_dish": "Masala Dosa",
+        "complements": [
+            {
+                "item": "Filter Coffee",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Masala Dosa"
+            },
+            {
+                "item": "Coconut Chutney",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Masala Dosa"
+            },
+            {
+                "item": "Sambar",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Masala Dosa"
+            },
+            {
+                "item": "Meduvada",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Masala Dosa"
+            },
+            {
+                "item": "Kesari Bath",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Masala Dosa"
+            }
+        ]
+    },
+    "Idli": {
+        "region": "South",
+        "base_dish": "Idli",
+        "complements": [
+            {
+                "item": "Sambar",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Idli"
+            },
+            {
+                "item": "Coconut Chutney",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Idli"
+            },
+            {
+                "item": "Tomato Thokku",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Idli"
+            },
+            {
+                "item": "Filter Coffee",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Idli"
+            },
+            {
+                "item": "Medu Vada",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Idli"
+            }
+        ]
+    },
+    "Hyderabadi Biryani": {
+        "region": "South",
+        "base_dish": "Hyderabadi Biryani",
+        "complements": [
+            {
+                "item": "Mirchi Ka Salan",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Hyderabadi Biryani"
+            },
+            {
+                "item": "Double Ka Meetha",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Hyderabadi Biryani"
+            },
+            {
+                "item": "Raita",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Hyderabadi Biryani"
+            },
+            {
+                "item": "Thums Up",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Hyderabadi Biryani"
+            },
+            {
+                "item": "Onion Rings",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Hyderabadi Biryani"
+            }
+        ]
+    },
+    "Appam": {
+        "region": "South",
+        "base_dish": "Appam",
+        "complements": [
+            {
+                "item": "Vegetable Stew",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Appam"
+            },
+            {
+                "item": "Coconut Milk",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Appam"
+            },
+            {
+                "item": "Egg Roast",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Appam"
+            },
+            {
+                "item": "Sweet Coconut Milk",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Appam"
+            },
+            {
+                "item": "Banana Chips",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Appam"
+            }
+        ]
+    },
+    "Pesarattu": {
+        "region": "South",
+        "base_dish": "Pesarattu",
+        "complements": [
+            {
+                "item": "Ginger Chutney",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Pesarattu"
+            },
+            {
+                "item": "Upma",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Pesarattu"
+            },
+            {
+                "item": "Sambar",
+                "category": "Beverage",
+                "match_reason": "Traditional South Indian pairing for Pesarattu"
+            },
+            {
+                "item": "Buttermilk",
+                "category": "Side",
+                "match_reason": "Traditional South Indian pairing for Pesarattu"
+            },
+            {
+                "item": "Pickle",
+                "category": "Dessert",
+                "match_reason": "Traditional South Indian pairing for Pesarattu"
+            }
+        ]
+    },
+    "Chole Bhature": {
+        "region": "North",
+        "base_dish": "Chole Bhature",
+        "complements": [
+            {
+                "item": "Sweet Lassi",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Chole Bhature"
+            },
+            {
+                "item": "Pickled Onions",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Chole Bhature"
+            },
+            {
+                "item": "Green Chutney",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Chole Bhature"
+            },
+            {
+                "item": "Gulab Jamun",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Chole Bhature"
+            },
+            {
+                "item": "Masala Papad",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Chole Bhature"
+            }
+        ]
+    },
+    "Paneer Tikka": {
+        "region": "North",
+        "base_dish": "Paneer Tikka",
+        "complements": [
+            {
+                "item": "Mint Chutney",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Paneer Tikka"
+            },
+            {
+                "item": "Laccha Pyaaz",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Paneer Tikka"
+            },
+            {
+                "item": "Rumali Roti",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Paneer Tikka"
+            },
+            {
+                "item": "Butter Naan",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Paneer Tikka"
+            },
+            {
+                "item": "Nimbu Soda",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Paneer Tikka"
+            }
+        ]
+    },
+    "Rajma Chawal": {
+        "region": "North",
+        "base_dish": "Rajma Chawal",
+        "complements": [
+            {
+                "item": "Papi",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Rajma Chawal"
+            },
+            {
+                "item": "Chopped Onions",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Rajma Chawal"
+            },
+            {
+                "item": "Jeera Raita",
+                "category": "Dessert",
+                "match_reason": "Traditional North Indian pairing for Rajma Chawal"
+            },
+            {
+                "item": "Boondi Raita",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Rajma Chawal"
+            },
+            {
+                "item": "Lassi",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Rajma Chawal"
+            }
+        ]
+    },
+    "Butter Chicken": {
+        "region": "North",
+        "base_dish": "Butter Chicken",
+        "complements": [
+            {
+                "item": "Garlic Naan",
+                "category": "Dessert",
+                "match_reason": "Traditional North Indian pairing for Butter Chicken"
+            },
+            {
+                "item": "Butter Naan",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Butter Chicken"
+            },
+            {
+                "item": "Jeera Rice",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Butter Chicken"
+            },
+            {
+                "item": "Saffron Phirni",
+                "category": "Dessert",
+                "match_reason": "Traditional North Indian pairing for Butter Chicken"
+            },
+            {
+                "item": "Dal Makhani",
+                "category": "Dessert",
+                "match_reason": "Traditional North Indian pairing for Butter Chicken"
+            }
+        ]
+    },
+    "Dal Baati Choorma": {
+        "region": "North",
+        "base_dish": "Dal Baati Choorma",
+        "complements": [
+            {
+                "item": "Ghee",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Dal Baati Choorma"
+            },
+            {
+                "item": "Lahsun Chutney",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Dal Baati Choorma"
+            },
+            {
+                "item": "Chaas",
+                "category": "Dessert",
+                "match_reason": "Traditional North Indian pairing for Dal Baati Choorma"
+            },
+            {
+                "item": "Kadi",
+                "category": "Side",
+                "match_reason": "Traditional North Indian pairing for Dal Baati Choorma"
+            },
+            {
+                "item": "Mirchi Vada",
+                "category": "Beverage",
+                "match_reason": "Traditional North Indian pairing for Dal Baati Choorma"
+            }
+        ]
+    },
+    "Vada Pav": {
+        "region": "West",
+        "base_dish": "Vada Pav",
+        "complements": [
+            {
+                "item": "Dry Garlic Chutney",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Vada Pav"
+            },
+            {
+                "item": "Fried Green Chillies",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Vada Pav"
+            },
+            {
+                "item": "Masala Chai",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Vada Pav"
+            },
+            {
+                "item": "Solkadhi",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Vada Pav"
+            },
+            {
+                "item": "Kokum Sharbat",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Vada Pav"
+            }
+        ]
+    },
+    "Puran Poli": {
+        "region": "West",
+        "base_dish": "Puran Poli",
+        "complements": [
+            {
+                "item": "Katachi Amti",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Puran Poli"
+            },
+            {
+                "item": "Ghee",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Puran Poli"
+            },
+            {
+                "item": "Milk",
+                "category": "Dessert",
+                "match_reason": "Traditional West Indian pairing for Puran Poli"
+            },
+            {
+                "item": "Shrikhand",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Puran Poli"
+            },
+            {
+                "item": "Potato Bhaji",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Puran Poli"
+            }
+        ]
+    },
+    "Misal Pav": {
+        "region": "West",
+        "base_dish": "Misal Pav",
+        "complements": [
+            {
+                "item": "Farsan",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Misal Pav"
+            },
+            {
+                "item": "Buttermilk",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Misal Pav"
+            },
+            {
+                "item": "Pav",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Misal Pav"
+            },
+            {
+                "item": "Onion Lemon Salad",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Misal Pav"
+            },
+            {
+                "item": "Solkadhi",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Misal Pav"
+            }
+        ]
+    },
+    "Dhokla": {
+        "region": "West",
+        "base_dish": "Dhokla",
+        "complements": [
+            {
+                "item": "Papaya Sambharo",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Dhokla"
+            },
+            {
+                "item": "Green Chillies",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Dhokla"
+            },
+            {
+                "item": "Masala Chai",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Dhokla"
+            },
+            {
+                "item": "Kadhim",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Dhokla"
+            },
+            {
+                "item": "Jalebi",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Dhokla"
+            }
+        ]
+    },
+    "Thalipeeth": {
+        "region": "West",
+        "base_dish": "Thalipeeth",
+        "complements": [
+            {
+                "item": "White Butter",
+                "category": "Dessert",
+                "match_reason": "Traditional West Indian pairing for Thalipeeth"
+            },
+            {
+                "item": "Curd",
+                "category": "Dessert",
+                "match_reason": "Traditional West Indian pairing for Thalipeeth"
+            },
+            {
+                "item": "Thecha",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Thalipeeth"
+            },
+            {
+                "item": "Pickle",
+                "category": "Side",
+                "match_reason": "Traditional West Indian pairing for Thalipeeth"
+            },
+            {
+                "item": "Jaggery",
+                "category": "Beverage",
+                "match_reason": "Traditional West Indian pairing for Thalipeeth"
+            }
+        ]
+    },
+    "Bengali Fish Curry": {
+        "region": "East",
+        "base_dish": "Bengali Fish Curry",
+        "complements": [
+            {
+                "item": "Steamed Rice",
+                "category": "Beverage",
+                "match_reason": "Traditional East Indian pairing for Bengali Fish Curry"
+            },
+            {
+                "item": "Aloo Posto",
+                "category": "Side",
+                "match_reason": "Traditional East Indian pairing for Bengali Fish Curry"
+            },
+            {
+                "item": "Mishti Doi",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Bengali Fish Curry"
+            },
+            {
+                "item": "Rosogolla",
+                "category": "Side",
+                "match_reason": "Traditional East Indian pairing for Bengali Fish Curry"
+            },
+            {
+                "item": "Begun Bhaja",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Bengali Fish Curry"
+            }
+        ]
+    },
+    "Luchi": {
+        "region": "East",
+        "base_dish": "Luchi",
+        "complements": [
+            {
+                "item": "Alur Dom",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Luchi"
+            },
+            {
+                "item": "Cholar Dal",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Luchi"
+            },
+            {
+                "item": "Payesh",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Luchi"
+            },
+            {
+                "item": "Sondesh",
+                "category": "Beverage",
+                "match_reason": "Traditional East Indian pairing for Luchi"
+            },
+            {
+                "item": "Begun Bhaja",
+                "category": "Dessert",
+                "match_reason": "Traditional East Indian pairing for Luchi"
+            }
+        ]
+    }
+}
